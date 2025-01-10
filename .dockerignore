@@ -1,0 +1,22 @@
+# Git files
+.git/
+.gitignore
+
+# VSCode files:
+.vscode/
+
+# macOS files
+.DS_Store
+
+# documentation files
+*.md
+
+# pytest cache files
+/.pytest_cache
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+.dockerignore
