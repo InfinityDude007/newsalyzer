@@ -54,9 +54,9 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/newsalyzer/latest:${{ github.sha }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}//newsalyzer/latest:cache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}//newsalyzer/latest:cache,mode=max
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/newsalyzer:${{ github.sha }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}//newsalyzer:cache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}//newsalyzer:cache,mode=max
       
       - name: Set up Docker compose and create .env
         run: |
