@@ -62,7 +62,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
-          cp config/.env.example .env
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" > .env
+          echo "SUPABASE_API_KEY=${{ secrets.SUPABASE_API_KEY }}" >> .env
+          echo "SERVER_PORT=${{ secrets.SERVER_PORT }}" >> .env
+          echo "LOG_LEVEL=DEBUG" >> .env
 
       - name: Start services
         run: |
