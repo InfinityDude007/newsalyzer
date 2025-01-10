@@ -62,7 +62,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
-          cp .env.example .env
+          cp config/.env.example .env
 
       - name: Start services
         run: |
