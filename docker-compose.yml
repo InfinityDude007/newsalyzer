@@ -1,9 +1,7 @@
-version: "3.8"
-
 services:
 
   # App server
-  server:
+  app:
     build: .
     restart: always
     env_file:
