@@ -1,5 +1,6 @@
 import logging
 import logging.config
+from logging.handlers import RotatingFileHandler
 import os
 
 LOG_LEVEL = os.getenv('LOG_LEVEL', 'DEBUG')
@@ -16,7 +17,7 @@ LOGGING_CONFIG = {
     'handlers': {
         'file': {
             'level': LOG_LEVEL,
-            'class': 'logging.FileHandler',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(os.path.dirname(__file__), 'app.log'),
             'maxBytes': 10 * 1024 * 1024,
             'backupCount': 5,
