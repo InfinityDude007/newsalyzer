@@ -65,11 +65,23 @@ jobs:
           echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" > .env
           echo "SUPABASE_API_KEY=${{ secrets.SUPABASE_API_KEY }}" >> .env
           echo "SERVER_PORT=${{ secrets.SERVER_PORT }}" >> .env
-          echo "LOG_LEVEL=DEBUG" >> .env
+          echo "LOG_LEVEL=INFO" >> .env
 
       - name: Start services
         run: |
           docker-compose up -d
+
+      - name: Check FastAPI health
+        run: |
+          until curl -f http://localhost:${{ secrets.SERVER_PORT }}/health; do
+            echo "Waiting for service to become healthy..."
+            sleep 5
+          done
+
+      - name: Run API tests
+        run: |
+          source venv/bin/activate
+          pytest -c config/pytest.ini tests/api_tests.py
       
       - name: Stop docker services
         run: |
