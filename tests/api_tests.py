@@ -1,13 +1,19 @@
+"""
+Test file to setup tests for all created FastAPI endpoints to validate status code and responses of all app endpoints.
+Ensure endpoints behave as expected and proper handling of edge cases, errors and failures.
+"""
+
+
 import httpx
+from config.logging_config import setup_tests_logging
+import logging
 import pytest
 import os
 from dotenv import load_dotenv
 
 
-"""
-Test file to setup tests for all created FastAPI endpoints to validate status code and responses of all app endpoints.
-Ensure endpoints behave as expected and proper handling of edge cases, errors and failures.
-"""
+setup_tests_logging()
+tests_logger = logging.getLogger('tests_logger')
 
 
 load_dotenv()
@@ -29,6 +35,17 @@ async def test_root_endpoint():
 
     expected_body = {"response": "Welcome to Newsalyzer!"}
     expected_status = 200
+    pass_flag = True
+    
+    if response.json() != expected_body:
+        tests_logger.error("Unexpected response body for Root endpoint: %s (expected: %s)", response.json(), expected_body)
+        pass_flag = False
+    if response.status_code != expected_status:
+        tests_logger.error("Unexpected status code for Root endpoint: %s (expected: %s OK)", get_http_status(response), expected_status)
+        pass_flag = False
+    if pass_flag:
+        tests_logger.info(f"Test passed - Root endpoint - {get_http_status(response)}")
+
     assert response.json() == expected_body, f"Unexpected response body for Root endpoint: {response.json()} (expected: {expected_body})"
     assert response.status_code == expected_status, f"Unexpected status code for Root endpoint: {get_http_status(response)} (expected: {expected_status} OK)"
 
@@ -42,5 +59,16 @@ async def test_health_endpoint():
     
     expected_body = {"status": "healthy"}
     expected_status = 200
+    pass_flag = True
+    
+    if response.json() != expected_body:
+        tests_logger.error("Unexpected response body for Health Check endpoint: %s (expected: %s)", response.json(), expected_body)
+        pass_flag = False
+    if response.status_code != expected_status:
+        tests_logger.error("Unexpected status code for Health Check endpoint: %s (expected: %s OK)", get_http_status(response), expected_status)
+        pass_flag = False
+    if pass_flag:
+        tests_logger.info(f"Test passed - Health Check endpoint - Status: {get_http_status(response)}")
+    
     assert response.json() == expected_body, f"Unexpected response body for Health Check endpoint: {response.json()} (expected: {expected_body})"
     assert response.status_code == expected_status, f"Unexpected status code for Health Check endpoint: {get_http_status(response)} (expected: {expected_status} OK)"

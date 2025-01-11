@@ -10,6 +10,7 @@ if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 fastapi_file = os.path.join(log_dir, 'FastAPI.log')
 healthcheck_file = os.path.join(log_dir, 'HealthCheck.log')
+tests_file = os.path.join(log_dir, "Tests.log")
 
 
 # Define the logging configuration for FastAPI
@@ -75,9 +76,42 @@ HEALTHCHECK_CONFIG = {
 }
 
 
+# Define the logging configuration for test runs
+TESTS_CONFIG = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': LOG_LEVEL,
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': tests_file,
+            'maxBytes': 10 * 1024 * 1024,
+            'backupCount': 5,
+            'formatter': 'standard',
+        },
+    },
+    'loggers': {
+        'tests_logger': {
+            'handlers': ['file'],
+            'level': LOG_LEVEL,
+            'propagate': False
+        },
+    }
+}
+
+
 def fastapi_logging():
     logging.config.dictConfig(FASTAPI_CONFIG)
 
 
 def healthcheck_logging():
     logging.config.dictConfig(HEALTHCHECK_CONFIG)
+
+
+def setup_tests_logging():
+    logging.config.dictConfig(TESTS_CONFIG)
