@@ -9,3 +9,4 @@ pytest-mock
 asyncpg
 sqlalchemy[asyncio]
 sqlalchemy-utils
+requests
