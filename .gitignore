@@ -92,3 +92,6 @@ dmypy.json
 # Server files
 /db-init
 __pycache__/
+
+# Runtime logs
+logs/

@@ -12,6 +12,9 @@ WORKDIR /app
 # Update package list and install dependencies
 RUN apt-get update && apt-get install -y build-essential libpq-dev && rm -rf /var/lib/apt/lists/*
 
+# Install curl in container
+RUN apt-get update && apt-get install -y curl
+
 # Copy requirements.txt file from host to container
 COPY app/requirements.txt /app/requirements.txt
 RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
