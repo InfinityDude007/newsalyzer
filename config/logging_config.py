@@ -5,7 +5,7 @@ import os
 
 
 LOG_LEVEL = os.getenv('LOG_LEVEL', 'DEBUG')
-log_dir = os.path.join(os.path.dirname(__file__), 'logs')
+log_dir = os.path.join(os.getcwd(), 'logs')
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 fastapi_file = os.path.join(log_dir, 'FastAPI.log')
