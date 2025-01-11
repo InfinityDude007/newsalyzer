@@ -82,8 +82,7 @@ Returns:
 async def read_root():
     app_logger.info("Root endpoint called.")
     return {
-        "response": "Test route was called successfully.",
-        "app_status": "Running."
+        "response": "Welcome to Newsalyzer!",
         }
 
 
@@ -100,4 +99,4 @@ Returns:
 @app.get('/health')
 async def health_check():
     health_check_logger.info("FastAPI health check called.")
-    return {"status": "OK"}
+    return {"status": "healthy"}
