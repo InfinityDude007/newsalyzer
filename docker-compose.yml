@@ -19,7 +19,7 @@ services:
     healthcheck:
       # Verify FastAPI endpoints are accessible
       test: ["CMD-SHELL", "curl --fail --max-time 10 --write-out '%{http_code}\n' --output /dev/stdout http://app:9000/health | grep -q '200' || exit 1"]
-      interval: 30s
+      interval: 60s
       timeout: 10s
       retries: 5
     networks:
