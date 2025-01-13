@@ -10,3 +10,4 @@ asyncpg
 sqlalchemy[asyncio]
 sqlalchemy-utils
 httpx
+supabase
