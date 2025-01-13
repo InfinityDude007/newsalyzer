@@ -25,8 +25,8 @@ class LoggingRoute(APIRoute):
     1. Overrides the `get_route_handler` method from `APIRoute`.
     2. Wraps the original route handler with a custom handler that intercepts the response.
     3. Logs the HTTP response details:
-    - If the request URL contains "/health", it uses the health check logger.
-    - Otherwise, it uses the default app logger.
+        - If the request URL contains "/health", it uses the health check logger.
+        - Otherwise, it uses the default app logger.
     4. Retrieves the status phrase for the response status code, defaulting to "Unknown" if the code is not standard.
 
     Returns:
