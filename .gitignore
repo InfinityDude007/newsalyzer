@@ -95,3 +95,6 @@ __pycache__/
 
 # Runtime logs
 logs/
+
+# Mock table data for testing
+mock_data/
