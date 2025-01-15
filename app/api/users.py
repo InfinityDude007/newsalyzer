@@ -33,17 +33,17 @@ async def create_new_user(request: UserDataRequest) -> GeneralResponse:
     Returns:
     GeneralResponse: A response indicating the outcome of the user creation operation.
     """
-    logger.info(f"Create New User endpoint called with request: [{request}]")
+    logger.info(f"Tag: Users - Endpoint: Create New User - Request: [{request}]")
     try:
         query_response = await create_user(request)
         return query_response
     
     except ValueError as e:
-        logger.error(f"Error creating new user - Value Error: {e}")
+        logger.error(f"Tag: Users - Endpoint: Create New User - Error creating new user: [Value Error: {e}]")
         raise HTTPException(status_code=409, detail=str(e))
     
     except RuntimeError as e:
-        logger.critical(f"Error creating new user - {e}")
+        logger.critical(f"Tag: Users - Endpoint: Create New User - Error creating new user: - [{e}]")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
@@ -67,17 +67,17 @@ async def fetch_user_data(id: int) -> GeneralResponse:
     Returns:
     GeneralResponse: A response containing the user's data or an error message.
     """
-    logger.info(f"Fetch User Details endpoint called with ID: {id}")
+    logger.info(f"Tag: Users - Endpoint: Fetch User Details - Request: [{id}]")
     try:
         query_response = await fetch_user(id)
         return query_response
     
     except ValueError as e:
-        logger.error(f"Error fetching user ID '{id}' - Value Error: {e}")
+        logger.error(f"Tag: Users - Endpoint: Fetch User Details - Error fetching user ID '{id}': [Value Error: {e}]")
         raise HTTPException(status_code=404, detail=str(e))
     
     except RuntimeError as e:
-        logger.critical(f"Error fetching user ID '{id}' - {e}")
+        logger.critical(f"Tag: Users - Endpoint: Fetch User Details - Error fetching user ID '{id}': [{e}]")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
@@ -101,17 +101,17 @@ async def fetch_user_id(username: str) -> GeneralResponse:
     Returns:
     GeneralResponse: A response containing the user ID or an error message.
     """
-    logger.info(f"Fetch User ID endpoint called with username: {username}")
+    logger.info(f"Tag: Users - Endpoint: Fetch User ID - Request: [{username}]")
     try:
         query_response = await fetch_id(username)
         return query_response
     
     except ValueError as e:
-        logger.error(f"Error fetching user ID for '{username}' - Value Error: {e}")
+        logger.error(f"Tag: Users - Endpoint: Fetch User ID - Error fetching user ID for '{username}': [Value Error: {e}]")
         raise HTTPException(status_code=404, detail=str(e))
     
     except RuntimeError as e:
-        logger.critical(f"Error fetching user ID for '{username}' - {e}")
+        logger.critical(f"Tag: Users - Endpoint: Fetch User ID - Error fetching user ID for '{username}': [{e}]")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
@@ -137,18 +137,18 @@ async def update_user_data(request: UserUpdateRequest) -> GeneralResponse:
     Returns:
     GeneralResponse: A response indicating the outcome of the user data update operation.
     """
-    logger.info(f"Update User Details endpoint called with request: [{request}]")
+    logger.info(f"Tag: Users - Endpoint: Update User Details - Request: [{request}]")
     try:
         query_response = await update_user(request)
         return query_response
     
     except ValueError as e:
         code = 409 if "already exists." in str(e) else 404
-        logger.error(f"Error updating data for user ID '{request.user_id}' - Value Error: {e}")
+        logger.error(f"Tag: Users - Endpoint: Update User Details - Error updating data for user ID '{request.user_id}': [Value Error: {e}]")
         raise HTTPException(status_code=code, detail=str(e))
     
     except RuntimeError as e:
-        logger.critical(f"Error updating data for user ID '{request.user_id}' - {e}")
+        logger.critical(f"Tag: Users - Endpoint: Update User Details - Error updating data for user ID '{request.user_id}': [{e}]")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
@@ -172,15 +172,15 @@ async def delete_user_data(id: int) -> GeneralResponse:
     Returns:
     GeneralResponse: A response indicating the outcome of the deletion operation.
     """
-    logger.info(f"Delete User Details endpoint called with ID: {id}")
+    logger.info(f"Tag: Users - Endpoint: Delete User Details - Request: [{id}]")
     try:
         query_response = await delete_user(id)
         return query_response
     
     except ValueError as e:
-        logger.error(f"Error deleting data for user ID '{id}' - Value Error: {e}")
+        logger.error(f"Tag: Users - Endpoint: Delete User Details - Error deleting data for user ID '{id}': [Value Error: {e}]")
         raise HTTPException(status_code=404, detail=str(e))
     
     except RuntimeError as e:
-        logger.critical(f"Error deleting data for user ID '{id}' - {e}")
+        logger.critical(f"Tag: Users - Endpoint: Delete User Details - Error deleting data for user ID '{id}': [{e}]")
         raise HTTPException(status_code=500, detail="Internal Server Error")

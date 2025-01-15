@@ -55,7 +55,7 @@ async def read_root() -> dict:
     Returns:
     - A dictionary with a welcome message.
     """
-    app_logger.info("Root endpoint called.")
+    app_logger.info("Tag: General - Endpoint: Root - Request: None")
     return {
         "response": "Welcome to Newsalyzer!",
         }
