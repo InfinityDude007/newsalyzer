@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from .utils import LoggingRoute
 from .users import router as users_router
 
 master_router = APIRouter()
