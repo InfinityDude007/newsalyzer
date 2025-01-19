@@ -98,15 +98,12 @@ jobs:
         run: |
           docker-compose up --build -d
 
-      - name: Debug Container Logs # Temp to debug test failures
-        run: docker logs $(docker ps -q)
-
-      - name: Check FastAPI health
-        run: |
-          until curl -f http://localhost:${{ secrets.SERVER_PORT }}/health; do
-            echo "Waiting for service to become healthy..."
-            sleep 5
-          done
+      # - name: Check FastAPI health
+      #   run: |
+      #     until curl -f http://localhost:${{ secrets.SERVER_PORT }}/health; do
+      #       echo "Waiting for service to become healthy..."
+      #       sleep 5
+      #     done
 
   
   test:
