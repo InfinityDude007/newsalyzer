@@ -80,10 +80,10 @@ jobs:
       - name: Check FastAPI health
         continue-on-error: true
         run: |
-          timeout 300s bash -f http://localhost:${{ secrets.SERVER_PORT }}/health; do
+          timeout 300s bash -c 'until curl --fail --max-time 10 http://localhost:${{ secrets.SERVER_PORT }}/health; do
             echo "Waiting for service to become healthy..."
             sleep 5
-          done
+          done'
       
       - name: Check FastAPI logs
         run: |
