@@ -103,7 +103,7 @@ jobs:
 
       - name: Check FastAPI health
         run: |
-          until curl -f http://localhost:${{ secrets.SERVER_PORT }}/health; do
+          until curl -f http://app:${{ secrets.SERVER_PORT }}/health; do
             echo "Waiting for service to become healthy..."
             sleep 5
           done
