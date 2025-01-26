@@ -78,16 +78,24 @@ jobs:
           sleep 30
 
       - name: Check FastAPI health
-        continue-on-error: true
         run: |
           timeout 120s bash -c 'until curl --fail --max-time 10 http://localhost:${{ secrets.SERVER_PORT }}/health; do
             echo "Waiting for service to become healthy..."
             sleep 5
           done'
       
-      - name: Check FastAPI logs
+      - name: (failure only) Display FastAPI app logs
+        if: ${{ failure() }}
         run: |
+          echo "FastAPI app logs:"
           docker-compose logs app
+
+      - name: (failure only) Display all custom logs
+        if: ${{ failure() }}
+        run: |
+          echo "Custom logs:"
+          ls -l logs
+          tail -n 100 logs/*
 
       - name: Run API tests
         run: |
