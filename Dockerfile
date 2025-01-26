@@ -23,7 +23,7 @@ RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 COPY . /app/
 
 # Expose port for application to be accessed externally
-EXPOSE 9000
+EXPOSE ${SERVER_PORT:-9000}
 
 # Start application using uvicorn
 CMD ["sh", "-c", "uvicorn app.app:app --host 0.0.0.0 --port ${SERVER_PORT:-9000} --reload"]

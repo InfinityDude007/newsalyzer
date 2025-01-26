@@ -7,6 +7,5 @@ pytest
 pytest-asyncio
 pytest-mock
 asyncpg
-sqlalchemy[asyncio]
-sqlalchemy-utils
 httpx
+supabase
