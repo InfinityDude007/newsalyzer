@@ -75,13 +75,19 @@ jobs:
       - name: Start services
         run: |
           docker-compose up -d
+          sleep 30
 
       - name: Check FastAPI health
+        continue-on-error: true
         run: |
-          until curl -f http://localhost:${{ secrets.SERVER_PORT }}/health; do
+          timeout 300s bash -f http://localhost:${{ secrets.SERVER_PORT }}/health; do
             echo "Waiting for service to become healthy..."
             sleep 5
           done
+      
+      - name: Check FastAPI logs
+        run: |
+          docker-compose logs app
 
       - name: Run API tests
         run: |

@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from supabase import create_client
+from supabase import create_client, Client
 from postgrest.exceptions import APIError
 from app.schema.users import UserDataRequest, UserDataResponse, UserUpdateRequest, GeneralResponse
 
@@ -8,7 +8,7 @@ from app.schema.users import UserDataRequest, UserDataResponse, UserUpdateReques
 load_dotenv()
 DATABASE_URL = os.getenv('SUPABASE_URL')
 DATABASE_API_KEY = os.getenv('SUPABASE_API_KEY')
-database_client = create_client(DATABASE_URL, DATABASE_API_KEY)
+supabase: Client = create_client(DATABASE_URL, DATABASE_API_KEY)
 
 
 
@@ -34,7 +34,7 @@ async def create_user(data: UserDataRequest) -> GeneralResponse:
     try:
         request_dict = data.model_dump()
         response = (
-            database_client
+            supabase
             .table("users")
             .insert(request_dict)
             .execute()
@@ -94,7 +94,7 @@ async def fetch_user(id: int) -> GeneralResponse:
     """
     try:
         response = (
-            database_client
+            supabase
             .table("users")
             .select("*")
             .eq("user_id", id)
@@ -143,7 +143,7 @@ async def fetch_id(username: str) -> GeneralResponse:
     """
     try:
         response = (
-            database_client
+            supabase
             .table("users")
             .select("user_id")
             .eq("username", username)
@@ -195,7 +195,7 @@ async def update_user(request: UserUpdateRequest) -> GeneralResponse:
         field = request.field
         data = request.data
         response = (
-            database_client
+            supabase
             .table("users")
             .update({field: data})
             .eq("user_id", id)
@@ -262,7 +262,7 @@ async def delete_user(id: int) -> GeneralResponse:
     """
     try:
         response = (
-            database_client
+            supabase
             .table("users")
             .delete()
             .eq("user_id", id)
